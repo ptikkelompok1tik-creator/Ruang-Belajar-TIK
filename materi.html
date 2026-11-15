@@ -1,5 +1,108 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Materi & Tips – RuangBelajar</title><link rel="stylesheet" href="style.css"></head><body>
-<header><div class="wrap bar"><a class="logo" href="index.html">📚 RuangBelajar</a><button id="burger" aria-label="Menu">☰</button><nav><a href="index.html">Beranda</a><a href="tentang.html">Tentang</a><a href="materi.html">Materi &amp; Tips</a><a href="kontak.html">Kontak</a></nav></div></header>
-<main class="wrap"><h1>Materi &amp; Tips Belajar</h1><div class="tools"><input id="q" type="search" placeholder="Cari materi..."><select id="f"><option value="">Semua kategori</option><option>Teknik Belajar</option><option>Manajemen Waktu</option><option>Dasar TI</option></select></div><div id="list" class="grid"></div><p class="note">Halaman ini masih dikerjakan: 4 dari 6 materi sudah terisi, halaman detail materi belum dibuat.</p><h2>Tips Singkat</h2><details><summary>Mulai dari yang paling mudah</summary><p>Kerjakan tugas ringan dulu untuk membangun momentum.</p></details><details><summary>Belajar sedikit tapi rutin</summary><p>30 menit setiap hari lebih efektif daripada belajar semalaman.</p></details><details><summary>Jelaskan ulang dengan kata sendiri</summary><p>Jika bisa menjelaskan ke teman, berarti materi sudah dipahami.</p></details></main>
-<footer><div class="wrap">© 2026 RuangBelajar – Kelompok 1 TMJ 1C · Versi progres sementara (belum final)</div></footer>
-<script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Materi &amp; Tips – RuangBelajar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="wrap bar">
+      <a class="logo" href="index.html">📚 RuangBelajar</a>
+      <div class="nav-grup">
+        <nav>
+          <a href="index.html">Beranda</a>
+          <a href="tentang.html">Tentang</a>
+          <a href="materi.html">Materi &amp; Tips</a>
+          <a href="kontak.html">Kontak</a>
+        </nav>
+        <button id="theme-toggle" type="button" aria-label="Ganti Tema">☀️ Light</button>
+        <button id="burger" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>Materi &amp; Tips Belajar</h1>
+
+    <div class="tools">
+      <input id="q" type="search" placeholder="Cari materi...">
+      <select id="f">
+        <option value="">Semua kategori</option>
+        <option>Teknik Belajar</option>
+        <option>Manajemen Waktu</option>
+        <option>Dasar TI</option>
+      </select>
+    </div>
+
+    <div id="list" class="grid"></div>
+    <p class="note">Progres konten: 4 dari 6 materi sudah dapat dibaca selengkapnya (klik kartu untuk membaca), 2 materi lainnya segera hadir.</p>
+
+    <h2>Tips Singkat</h2>
+    <div class="tip-box">
+      <p id="random-tip">Klik tombol di samping untuk mendapatkan satu tips belajar acak.</p>
+      <button id="btn-tip" class="btn o" type="button">🎲 Tips Acak</button>
+    </div>
+
+    <details>
+      <summary>Mulai dari yang paling mudah</summary>
+      <p>Kerjakan tugas ringan dulu untuk membangun momentum sebelum masuk ke materi yang berat.</p>
+    </details>
+    <details>
+      <summary>Belajar sedikit tapi rutin</summary>
+      <p>30 menit setiap hari lebih efektif daripada sistem kebut semalam (SKS).</p>
+    </details>
+    <details>
+      <summary>Jelaskan ulang dengan kata sendiri</summary>
+      <p>Gunakan teknik Feynman: jika kamu bisa menjelaskannya dengan bahasa sederhana ke teman, berarti kamu sudah paham.</p>
+    </details>
+
+    <h2>Rekomendasi Sumber Belajar</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="ic">🎓</div>
+        <span class="tag">Jurnal &amp; Referensi</span>
+        <h3>Google Scholar</h3>
+        <p>Mencari jurnal ilmiah, skripsi, dan makalah akademik tepercaya untuk tugas kuliah.</p>
+        <a class="link-sumber" href="https://scholar.google.com" target="_blank" rel="noopener">Buka Situs ↗</a>
+      </div>
+      <div class="card">
+        <div class="ic">💻</div>
+        <span class="tag">Pemrograman &amp; TI</span>
+        <h3>W3Schools &amp; MDN</h3>
+        <p>Dokumentasi dan latihan interaktif dasar HTML, CSS, JavaScript, dan teknologi web.</p>
+        <a class="link-sumber" href="https://developer.mozilla.org" target="_blank" rel="noopener">Buka Situs ↗</a>
+      </div>
+      <div class="card">
+        <div class="ic">🏛️</div>
+        <span class="tag">E-Book Gratis</span>
+        <h3>iPusnas (Perpusnas)</h3>
+        <p>Perpustakaan digital resmi milik Perpustakaan Nasional RI untuk meminjam buku teks gratis.</p>
+        <a class="link-sumber" href="https://ipusnas.id" target="_blank" rel="noopener">Buka Situs ↗</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Pop-up Detail Materi -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-box">
+      <button id="close-modal" class="close-btn" aria-label="Tutup">&times;</button>
+      <div id="m-icon" class="ic"></div>
+      <div class="meta-row">
+        <span id="m-kat" class="tag"></span>
+        <span id="m-waktu" class="read-time"></span>
+      </div>
+      <h2 id="m-judul"></h2>
+      <div id="m-isi"></div>
+      <p class="m-ref"><b>Sumber Referensi:</b> <span id="m-sumber"></span></p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">© 2026 RuangBelajar – Kelompok 1 TMJ 1C · Versi progres sementara (belum final)</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

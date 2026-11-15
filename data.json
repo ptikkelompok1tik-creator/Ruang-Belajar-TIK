@@ -1,0 +1,67 @@
+{
+  "materi": [
+    {
+      "judul": "Teknik Pomodoro",
+      "kategori": "Manajemen Waktu",
+      "ikon": "⏱️",
+      "waktuBaca": "3 menit baca",
+      "deskripsi": "Belajar 25 menit, istirahat 5 menit agar fokus terjaga.",
+      "tersedia": true,
+      "isiLengkap": "<p>Teknik Pomodoro adalah metode manajemen waktu yang membagi sesi belajar menjadi interval fokus singkat agar otak tidak cepat lelah.</p><ul><li><b>Langkah 1:</b> Pilih satu tugas spesifik yang ingin dikerjakan.</li><li><b>Langkah 2:</b> Setel timer selama 25 menit dan fokus penuh tanpa membuka notifikasi HP.</li><li><b>Langkah 3:</b> Saat timer berbunyi, ambil istirahat singkat 5 menit (peregangan atau minum air).</li><li><b>Langkah 4:</b> Setelah 4 sesi Pomodoro selesai, ambil istirahat panjang 15–30 menit.</li></ul>",
+      "sumberReferensi": "Francesco Cirillo – The Pomodoro Technique"
+    },
+    {
+      "judul": "Membuat Catatan Efektif",
+      "kategori": "Teknik Belajar",
+      "ikon": "📝",
+      "waktuBaca": "4 menit baca",
+      "deskripsi": "Metode Cornell dan peta konsep untuk merangkum materi kuliah.",
+      "tersedia": true,
+      "isiLengkap": "<p>Mencatat bukan sekadar menyalin slide dosen, melainkan memproses ulang informasi agar mudah diingat saat ujian.</p><ul><li><b>Metode Cornell:</b> Bagi kertas menjadi 3 bagian: kolom kiri untuk kata kunci/pertanyaan, kolom kanan untuk catatan utama saat kuliah, dan bagian bawah untuk kesimpulan 2–3 kalimat.</li><li><b>Mind Mapping (Peta Konsep):</b> Tulis topik utama di tengah, lalu buat cabang sub-topik menggunakan warna berbeda untuk melihat hubungan antar konsep.</li></ul>",
+      "sumberReferensi": "Cornell University Learning Strategies Center"
+    },
+    {
+      "judul": "Menyusun Jadwal Belajar",
+      "kategori": "Manajemen Waktu",
+      "ikon": "📅",
+      "waktuBaca": "3 menit baca",
+      "deskripsi": "Cara membagi waktu antara kuliah, tugas, dan istirahat.",
+      "tersedia": true,
+      "isiLengkap": "<p>Mahasiswa baru sering kewalahan karena jadwal kuliah yang berbeda-beda tiap hari. Gunakan pendekatan <i>Time Blocking</i> untuk mengatasinya.</p><ul><li><b>Catat semua tenggat waktu:</b> Masukkan jadwal kuis, UTS, dan deadline tugas ke kalender digital di awal minggu.</li><li><b>Prioritaskan dengan Matriks Eisenhower:</b> Kerjakan dulu tugas yang penting dan mendesak, lalu jadwalkan tugas penting yang tenggatnya masih lama.</li><li><b>Sisakan waktu luang:</b> Jangan mengisi jadwal 100% penuh; beri jeda 1 jam setiap hari untuk hal tak terduga.</li></ul>",
+      "sumberReferensi": "Panduan Manajemen Waktu Mahasiswa – Kemendikbudristek"
+    },
+    {
+      "judul": "Dasar Berpikir Algoritma",
+      "kategori": "Dasar TI",
+      "ikon": "💡",
+      "waktuBaca": "5 menit baca",
+      "deskripsi": "Mengenal langkah berurutan untuk menyelesaikan masalah.",
+      "tersedia": true,
+      "isiLengkap": "<p>Berpikir komputasional dan algoritma adalah fondasi utama di bidang Teknologi Informasi sebelum mulai menulis kode program.</p><ul><li><b>Dekomposisi:</b> Memecah masalah besar menjadi bagian-bagian kecil yang lebih mudah dikelola.</li><li><b>Pengenalan Pola:</b> Mencari kesamaan masalah dengan kasus yang pernah diselesaikan sebelumnya.</li><li><b>Abstraksi:</b> Fokus pada informasi inti dan mengabaikan detail yang tidak relevan.</li><li><b>Algoritma:</b> Menyusun langkah-langkah logis secara berurutan (Input &rarr; Proses &rarr; Output).</li></ul>",
+      "sumberReferensi": "Modul Pengantar Algoritma & Pemrograman Dasar"
+    },
+    {
+      "judul": "Belajar dari Sumber Digital",
+      "kategori": "Dasar TI",
+      "ikon": "🌐",
+      "waktuBaca": "Segera hadir",
+      "deskripsi": "Memilih sumber belajar online yang tepercaya.",
+      "tersedia": false
+    },
+    {
+      "judul": "Persiapan Ujian",
+      "kategori": "Teknik Belajar",
+      "ikon": "🎯",
+      "waktuBaca": "Segera hadir",
+      "deskripsi": "Strategi mengulang materi menjelang UTS dan UAS.",
+      "tersedia": false
+    }
+  ],
+  "tips": [
+    "Gunakan aturan 2 menit: jika ada tugas kecil yang bisa selesai di bawah 2 menit, langsung kerjakan sekarang.",
+    "Jauhkan HP ke ruangan lain atau aktifkan mode 'Jangan Ganggu' saat sedang fokus belajar.",
+    "Gunakan teknik Active Recall: tutup bukumu dan coba tulis semua hal yang kamu ingat tentang materi hari ini.",
+    "Belajar di tempat yang terang dan hindari belajar di atas kasur agar otak tidak mengasosiasikannya dengan tidur.",
+    "Bentuk kelompok belajar kecil (3–4 orang) untuk saling menguji pemahaman sebelum minggu ujian."
+  ]
+}

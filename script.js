@@ -1,24 +1,197 @@
-const MATERI=[
-{t:"Teknik Pomodoro",k:"Manajemen Waktu",i:"⏱️",d:"Belajar 25 menit, istirahat 5 menit agar fokus terjaga.",ok:1},
-{t:"Membuat Catatan Efektif",k:"Teknik Belajar",i:"📝",d:"Metode Cornell dan peta konsep untuk merangkum materi kuliah.",ok:1},
-{t:"Menyusun Jadwal Belajar",k:"Manajemen Waktu",i:"📅",d:"Cara membagi waktu antara kuliah, tugas, dan istirahat.",ok:1},
-{t:"Dasar Berpikir Algoritma",k:"Dasar TI",i:"💡",d:"Mengenal langkah berurutan untuk menyelesaikan masalah.",ok:1},
-{t:"Belajar dari Sumber Digital",k:"Dasar TI",i:"🌐",d:"Memilih sumber belajar online yang tepercaya.",ok:0},
-{t:"Persiapan Ujian",k:"Teknik Belajar",i:"🎯",d:"Strategi mengulang materi menjelang UTS dan UAS.",ok:0}];
-const $=s=>document.querySelector(s);
-const nav=$("nav"),bg=$("#burger");
-if(bg)bg.onclick=()=>nav.classList.toggle("open");
-document.querySelectorAll("nav a").forEach(a=>{if(a.getAttribute("href")===location.pathname.split("/").pop()||(!location.pathname.split("/").pop()&&a.getAttribute("href")==="index.html"))a.classList.add("on")});
-const list=$("#list");
-if(list){const q=$("#q"),f=$("#f");
-const draw=()=>{const s=q.value.toLowerCase(),c=f.value;
-const r=MATERI.filter(m=>(!c||m.k===c)&&(m.t+m.d).toLowerCase().includes(s));
-list.innerHTML=r.length?r.map(m=>`<div class="card${m.ok?"":" off"}"><div class="ic">${m.i}</div><span class="tag">${m.k}</span> ${m.ok?"":'<span class="tag s">Segera hadir</span>'}<h3>${m.t}</h3><p>${m.d}</p></div>`).join(""):'<p class="note">Materi tidak ditemukan.</p>'};
-q.oninput=draw;f.onchange=draw;draw()}
-const form=$("#kontak");
-if(form)form.onsubmit=e=>{e.preventDefault();let ok=true;
-const chk=(id,bad,msg)=>{const el=$("#"+id);$("#e-"+id).textContent=bad(el.value.trim())?msg:"";if(bad(el.value.trim()))ok=false};
-chk("nama",v=>v.length<3,"Nama minimal 3 karakter.");
-chk("email",v=>!/^\S+@\S+\.\S+$/.test(v),"Format email belum benar.");
-chk("pesan",v=>v.length<10,"Pesan minimal 10 karakter.");
-$("#hasil").textContent=ok?"Terima kasih! (Simulasi: pesan tidak dikirim ke server.)":"";if(ok)form.reset()};
+const ambilElemen = (selector) => document.querySelector(selector);
+
+// Variabel penampung data dari JSON
+let DAFTAR_MATERI = [];
+let DAFTAR_TIPS = [];
+
+// 0. Pengaturan Tema (Default Dark Mode -> Klik untuk Light Mode)
+const tombolTema = ambilElemen("#theme-toggle");
+const akarDokumen = document.documentElement;
+
+const terapkanTema = (tema) => {
+  akarDokumen.setAttribute("data-theme", tema);
+  localStorage.setItem("tema-ruangbelajar", tema);
+  if (tombolTema) {
+    tombolTema.textContent = tema === "dark" ? "☀️ Light" : "🌙 Dark";
+  }
+};
+
+// Selalu mulai dari "dark" kecuali user sebelumnya sudah memilih "light"
+const temaTersimpan = localStorage.getItem("tema-ruangbelajar") || "dark";
+terapkanTema(temaTersimpan);
+
+if (tombolTema) {
+  tombolTema.onclick = () => {
+    const temaSekarang = akarDokumen.getAttribute("data-theme");
+    terapkanTema(temaSekarang === "dark" ? "light" : "dark");
+  };
+}
+
+// 1. Navigasi Mobile (Burger Menu)
+const menuNavigasi = ambilElemen("nav");
+const tombolBurger = ambilElemen("#burger");
+
+if (tombolBurger) {
+  tombolBurger.onclick = () => menuNavigasi.classList.toggle("open");
+}
+
+// 2. Menandai Halaman Aktif di Menu Navigasi
+const halamanSekarang = location.pathname.split("/").pop();
+document.querySelectorAll("nav a").forEach((link) => {
+  const tujuanLink = link.getAttribute("href");
+  if (tujuanLink === halamanSekarang || (!halamanSekarang && tujuanLink === "index.html")) {
+    link.classList.add("on");
+  }
+});
+
+// 3. Mengambil Data dari File JSON & Menampilkan ke Halaman
+const wadahMateri = ambilElemen("#list");
+const modalDetail = ambilElemen("#modal");
+
+async function muatDataMateri() {
+  if (!wadahMateri) return;
+
+  try {
+    const respon = await fetch("data.json");
+    const data = await respon.json();
+
+    DAFTAR_MATERI = data.materi;
+    DAFTAR_TIPS = data.tips;
+
+    aktifkanFiturMateri();
+  } catch (error) {
+    wadahMateri.innerHTML =
+      '<p class="note">Gagal memuat data.json. Pastikan website dibuka melalui Live Server atau hosting.</p>';
+  }
+}
+
+function aktifkanFiturMateri() {
+  const inputPencarian = ambilElemen("#q");
+  const filterKategori = ambilElemen("#f");
+
+  const tampilkanDaftarMateri = () => {
+    const kataKunci = inputPencarian.value.toLowerCase();
+    const kategoriDipilih = filterKategori.value;
+
+    const hasilFilter = DAFTAR_MATERI.filter((materi) => {
+      const cocokKategori = !kategoriDipilih || materi.kategori === kategoriDipilih;
+      const cocokTeks = (materi.judul + materi.deskripsi).toLowerCase().includes(kataKunci);
+      return cocokKategori && cocokTeks;
+    });
+
+    if (hasilFilter.length === 0) {
+      wadahMateri.innerHTML = '<p class="note">Materi tidak ditemukan.</p>';
+      return;
+    }
+
+    wadahMateri.innerHTML = hasilFilter
+      .map((materi) => {
+        const indexAsli = DAFTAR_MATERI.indexOf(materi);
+        const statusLabel = materi.tersedia
+          ? `<span class="read-time">📖 ${materi.waktuBaca}</span>`
+          : '<span class="tag s">Segera hadir</span>';
+
+        const tombolBaca = materi.tersedia
+          ? `<button class="btn btn-card" type="button" onclick="bukaDetailMateri(${indexAsli})">Baca Materi</button>`
+          : "";
+
+        return `
+          <div class="card${materi.tersedia ? "" : " off"}">
+            <div class="ic">${materi.ikon}</div>
+            <div class="meta-row">
+              <span class="tag">${materi.kategori}</span>
+              ${statusLabel}
+            </div>
+            <h3>${materi.judul}</h3>
+            <p>${materi.deskripsi}</p>
+            ${tombolBaca}
+          </div>
+        `;
+      })
+      .join("");
+  };
+
+  inputPencarian.oninput = tampilkanDaftarMateri;
+  filterKategori.onchange = tampilkanDaftarMateri;
+  tampilkanDaftarMateri();
+}
+
+// Jalankan pengambilan data JSON
+muatDataMateri();
+
+// 4. Fungsi Buka & Tutup Pop-up Detail Materi
+window.bukaDetailMateri = (indexMateri) => {
+  const materi = DAFTAR_MATERI[indexMateri];
+  if (!materi || !materi.tersedia) return;
+
+  ambilElemen("#m-icon").textContent = materi.ikon;
+  ambilElemen("#m-kat").textContent = materi.kategori;
+  ambilElemen("#m-waktu").textContent = "📖 " + materi.waktuBaca;
+  ambilElemen("#m-judul").textContent = materi.judul;
+  ambilElemen("#m-isi").innerHTML = materi.isiLengkap;
+  ambilElemen("#m-sumber").textContent = materi.sumberReferensi;
+
+  modalDetail.classList.add("show");
+  modalDetail.setAttribute("aria-hidden", "false");
+};
+
+if (modalDetail) {
+  const tutupDetailMateri = () => {
+    modalDetail.classList.remove("show");
+    modalDetail.setAttribute("aria-hidden", "true");
+  };
+
+  ambilElemen("#close-modal").onclick = tutupDetailMateri;
+  modalDetail.onclick = (event) => {
+    if (event.target === modalDetail) tutupDetailMateri();
+  };
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modalDetail.classList.contains("show")) {
+      tutupDetailMateri();
+    }
+  });
+}
+
+// 5. Fitur Tips Belajar Acak
+const tombolTipsAcak = ambilElemen("#btn-tip");
+if (tombolTipsAcak) {
+  let indexTipsSebelumnya = -1;
+
+  tombolTipsAcak.onclick = () => {
+    if (DAFTAR_TIPS.length === 0) return;
+
+    let indexAcak;
+    do {
+      indexAcak = Math.floor(Math.random() * DAFTAR_TIPS.length);
+    } while (indexAcak === indexTipsSebelumnya && DAFTAR_TIPS.length > 1);
+
+    indexTipsSebelumnya = indexAcak;
+    ambilElemen("#random-tip").textContent = "💡 " + DAFTAR_TIPS[indexAcak];
+  };
+}
+
+// 6. Validasi Formulir Kontak
+const formKontak = ambilElemen("#kontak");
+if (formKontak) {
+  formKontak.onsubmit = (event) => {
+    event.preventDefault();
+    let semuaValid = true;
+
+    const cekInput = (idInput, kondisiSalah, pesanError) => {
+      const elemenInput = ambilElemen("#" + idInput);
+      const tidakValid = kondisiSalah(elemenInput.value.trim());
+      ambilElemen("#e-" + idInput).textContent = tidakValid ? pesanError : "";
+      if (tidakValid) semuaValid = false;
+    };
+
+    cekInput("nama", (nilai) => nilai.length < 3, "Nama minimal 3 karakter.");
+    cekInput("email", (nilai) => !/^\S+@\S+\.\S+$/.test(nilai), "Format email belum benar.");
+    cekInput("pesan", (nilai) => nilai.length < 10, "Pesan minimal 10 karakter.");
+
+    ambilElemen("#hasil").textContent = semuaValid
+      ? "Terima kasih! (Simulasi: pesan tidak dikirim ke server.)"
+      : "";
+
+    if (semuaValid) formKontak.reset();
+  };
+}
